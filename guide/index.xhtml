@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:d="http://www.xidea.org/lite/document" xml:lang="zh-CN" dir="ltr">
+
+	<head>
+		<title>Lite 文档工具说明 </title>
+	</head>
+	<body>
+		<a name="what" />
+		<h3>初始化文档编写环境</h3>
+		<p>
+			<ul>
+				<li>安装litedoc
+					<d:code>npm install litedoc</d:code>
+				</li>
+				<li>创建启动脚本(start.js)
+					<d:code>require('litedoc').start();</d:code>
+				</li>
+				<li>初始化布局及配置
+					<p> 建议直接拷贝litedoc安装目录下的guide目录，里面包含 布局(guide/layout.xhtml), 菜单(guide/layout-menu.xhtml),css 样式单(guide/default.css,guide/highlight.css)</p>
+					<p>	布局配置实例（lite.xml） 参考 <a onclick="return showNext(this,'展开','折叠')" href='#'>展开</a></p>
+<div style="display:none">
+<d:code>
+<![CDATA[<lite encoding="utf-8" type="text/html" xmlns="">
+	<!-- 必选配置， 否则无法装载文档相关的lite扩展模块 -->
+	<extension namespace="http://www.xidea.org/lite/document" package="litedoc" />
+	<group>
+		<!-- 直接用普通html编写文档 -->
+		<group layout="/guide/layout.xhtml">
+			<!-- 直接用普通html编写文档 -->
+			<include>/guide/*.xhtml</include>
+			<!-- 用markdown格式 编写文档 -->
+			<include>/guide/*.md</include>
+		</group>
+	</group>
+	<include>**.xhtml</include>
+</lite>]]>
+</d:code>
+</div>
+				</li>
+			</ul>
+		</p>
+		
+		<a name="style" />
+	</body>
+</html>

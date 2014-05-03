@@ -1,0 +1,79 @@
+<div id="menu">
+	<div class="menuInner">
+		<h3>功能简介</h3>
+		<ul>
+			<li>
+				<a href="index.xhtml#start">开始工作 </a>
+			</li>
+			<li>
+				<a href="index.xhtml#comment">文档评论 </a>
+			</li>
+			<li>
+				<a href="index.xhtml#search">文档搜索</a>
+			</li>
+		</ul>
+
+		<h3>语法支持</h3>
+		<ul>
+			<li>
+				<a href="markdown.xhtml">Markdown 语法</a>
+			</li>
+			<li>
+				<a href="xhtml.xhtml">html 语法</a>
+			</li>
+			<li>
+				<a href="lite.xhtml">Lite 模板语法</a>
+			</li>
+			<li>
+				<a href="highlight.xhtml">代码语法作色</a>
+			</li>
+		</ul>
+		<h3>使用说明</h3>
+		<ul>
+			<li>
+				<a href="env.xhtml">运行环境 </a>
+			</li>
+			<li>
+				<a href="config.xhtml">配置说明</a>
+			</li>
+			<li>
+				<a href="commont.xhtml">评论管理 </a>
+			</li>
+			<li>
+				<a href="search.xhtml">搜索支持 </a>
+			</li>
+			<li>
+				<a href="static.xhtml">静态化打包</a>
+			</li>
+		</ul>
+
+		<h3>持续集成</h3>
+		<ul>
+			<li>
+				<a href="ant.xhtml">ant打包</a>
+			</li>
+			<li>
+				<a href="ant.xhtml">其他</a>
+			</li>
+		</ul>
+	</div>
+		<script>
+			var menu = document.getElementById('menu');
+			var menuContent = menu.firstChild;
+			menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;
+			var as = document.body.getElementsByTagName('a');
+			var height = menu.scrollHeight;
+			for(var i = as.length;i--;){
+				var a = as.item(i);
+				if(/\bcurrent\b/.test(a.className)){
+					var t= a.offsetTop;
+					var bt = height - t;
+					//alert([height,t,bt])
+					if(bt<120){
+						menuContent.scrollTop = -bt+Math.min(150,height/3)+15
+					}
+					//a.parentNode.scrollIntoView();
+				} 
+			}
+		</script>
+</div>

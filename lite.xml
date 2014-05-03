@@ -1,0 +1,10 @@
+<lite encoding="utf-8" type="text/html" xmlns="">
+	<extension namespace="http://www.xidea.org/lite/document" package="litedoc" />
+	<group>
+		<group layout="/guide/layout.xhtml">
+			<include>/guide/*.xhtml</include>
+		</group>
+	</group>
+	<include>**.xhtml</include>
+</lite>
+
