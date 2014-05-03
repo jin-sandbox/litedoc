@@ -2,9 +2,15 @@ var LiteEngine = require('lite').LiteEngine;
 var path = require('path');
 var fs = require('fs');
 var http = require('http');
+var engine;
 function start(root){
+	if(engine != null){//node 一个重复执行的奇怪问题
+		return ;
+	}
+	//console.log('@@@'+new Error().stack)
 	root = path.resolve(root || './');
-	var engine = new LiteEngine(root);
+	engine = new LiteEngine(root);
+	var port = process.env.APP_PORT || 18080;
 	require('lite/test/file-server').createServer(function (req, response,root) {
 		var url = req.url;
 		var param = {};
@@ -31,7 +37,7 @@ function start(root){
 	    	return true;
 		}
 		
-	},root).listen(process.env.APP_PORT || 18080);
-	console.log('lite test server is started: http://127.0.0.1:'+(process.env.APP_PORT || 18080));
+	},root).listen(port);
+	console.log('lite test server is started: http://localhost:'+(port));
 }
 exports.start = start;

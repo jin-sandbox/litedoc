@@ -57,5 +57,6 @@ exports.parseCode = parseCode;
 exports.parseMarkdown = parseMarkdown;
 exports.seekMarkdown = seekMarkdown;
 exports.start = function(root){
+	console.log('## start!')
 	require('./server').start(root);
 };
