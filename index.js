@@ -15,7 +15,13 @@ function markdownAndHighlight(text){
 		//return prefix + hljs.highlight('java',content).value+postfix;
 		return prefix + hljs.highlightAuto(content).value+postfix;
 		//return prefix + hljs.highlightAuto(content,['java','javascript','xml']).value+postfix;
-	})
+	}).replace(/(<\/?h\d>\s*)?&lt;a\s+name=&quot;([\w\-_]+)&quot;\s*(?:\/&gt;|&gt;\s*&lt;\/a&gt;)(\s*<\/?h\d>)?/g,function(a,h1,id,h2){
+			if (h1|| h2){
+				return (h1||'')+'<a name=\"'+id+'"></a>'+(h2||'');
+			}else{
+				return a;
+			}
+		})
 }
 function seekMarkdown(text){
 	var html = markdownAndHighlight( text);
@@ -53,6 +59,7 @@ function parseMarkdown(node){
 		throw e;
 	}
 }
+exports.markdownAndHighlight = markdownAndHighlight;
 exports.parseCode = parseCode;
 exports.parseMarkdown = parseMarkdown;
 exports.seekMarkdown = seekMarkdown;

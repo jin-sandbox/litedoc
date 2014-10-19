@@ -1,6 +1,6 @@
 {
     "name": "litedoc",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "bae",
     "description": "The first bae nodejs app!",
     "scripts": {
@@ -10,7 +10,8 @@
     "dependencies": {
     	"lite":">=3.0.1",
     	"markdown":"*",
-    	"highlight.js":"*"
+    	"highlight.js":"*",
+    	"ejs":"*"
     }
 }
 

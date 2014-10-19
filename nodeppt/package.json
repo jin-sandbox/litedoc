@@ -1,0 +1,54 @@
+{
+  "name": "nodeppt",
+  "jsname": "nodeppt",
+  "description": "A simple, in-browser, markdown-driven presentation framework",
+  "version": "0.8.9-1",
+  "site": "https://github.com/ksky521/nodePPT",
+  "author": {
+    "name": "Theo Wang",
+    "email": "ksky521@gmail.com"
+  },
+  "bin": {
+    "nodeppt": "bin/nodeppt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ksky521/nodePPT"
+  },
+  "dependencies": {
+    "colors": ">=0.6.0-1",
+    "commander": "^2.2.0",
+    "connect": "2.11.0",
+    "cookie": ">=0.1.0",
+    "ejs": "0.8.4",
+    "ipv4": "0.0.4",
+    "read": ">=1.0.4",
+    "socket.io": "0.9.13"
+  },
+  "devDependencies": {
+    "grunt": ">=0.4.0",
+    "grunt-contrib-jshint": ">=0.1.1",
+    "grunt-contrib-uglify": ">=0.2",
+    "grunt-contrib-nodeunit": ">=0.1.2"
+  },
+  "keywords": [
+    "ppt",
+    "slide",
+    "reveal",
+    "impressjs",
+    "presentation",
+    "powerpoint",
+    "slideshow",
+    "markdown"
+  ],
+  "readmeFilename": "README.md",
+  "readme": "nodePPT - 让你爱上做分享！\r\n=============\r\n## 为什么选择nodePPT\r\n * 基于GFM的markdown语法编写\r\n * 支持[html混排](#mixed-code)，再复杂的demo也可以做！\r\n * [导出网页](#export-html)或者[pdf](#export-pdf)更容易分享\r\n * 支持[18种转场动画](#transition)，可以设置单页动画\r\n * 支持单页背景图片\r\n * 多种模式：overview模式，[双屏模式](#postmessage)，[socket远程控制](#socket)，摇一摇换页，使用ipad控制做分享更酷哦~\r\n * 可以使用画板，可以使用note做备注\r\n * 支持语法高亮，自由选择highlight样式\r\n * 可以单页ppt内部动画，单步动画\r\n * [支持进入/退出回调](#callback)，做在线demo很方便\r\n\r\n## demo\r\n * http://qdemo.sinaapp.com/\r\n * 双屏控制：http://qdemo.sinaapp.com/?_multiscreen=1 记得允许弹窗哦~\r\n\r\n\r\n## 安装\r\n\r\n```bash\r\nnpm install -g nodeppt\r\n```\r\n\r\n## shell使用\r\n\r\n### 启动\r\n\r\n```bash\r\n# 获取帮助\r\nnodeppt start -h\r\n# 绑定端口\r\nnodeppt start -p <port>\r\n```\r\n\r\n```bash\r\nnodeppt start -p 8090 -d path/for/ppts\r\n# 绑定host，默认绑定0.0.0.0\r\nnodeppt start -p 8080 -d path/for/ppts -h 127.0.0.1\r\n# 使用socket通信（按Q键显示/关闭二维码，手机扫描，即可控制）\r\n# socket须知：1、注意手机和pc要可以相互访问，2、防火墙，3、ip\r\nnodeppt start -c socket\r\n# 不加-c默认使用postMessage，窗口联动，即list页面【多窗口】链接\r\n```\r\n\r\n#### 启用socket控制\r\n\r\n##### 方法一：使用`start`命令行\r\n\r\n```bash\r\nnodeppt start -c socket\r\n```\r\n在页面按键【Q】显示控制url的二维码和控制链接（需要隐身窗口打开），手机上可以使用左右touch滑动和摇一摇切换下一页\r\n\r\n##### 方法二：使用url参数\r\n\r\n```bash\r\nhttp://127.0.0.1:8080/md/demo.md?controller=socket\r\n```\r\n\r\n在页面按键【Q】显示控制url的二维码和控制链接（需要隐身窗口打开），手机上可以使用左右touch滑动和摇一摇切换下一页\r\n\r\n#### 启用postMessage控制\r\n默认使用postMessage多窗口控制，打开方法：\r\n\r\n```bash\r\nhttp://127.0.0.1:8080/md/demo.md?_multiscreen=1\r\n```\r\n\r\n\r\n### 导出ppt\r\n这么高端大气上档次的ppt，怎么能不导出分享给大家呢？？\r\n\r\n导出ppt有两种，一种是**pdf版**，一种是**html版**\r\n\r\n<a name=\"export-pdf\"></a>\r\n#### pdf版\r\n需要安装[phantomJS](http://phantomjs.org/)。\r\n\r\n```bash\r\n# 安装phantomjs，如果安装了，请忽略\r\nnpm install -g phantomjs\r\n# 启动nodeppt server\r\nnodeppt start\r\n# 导出文件\r\nnodeppt pdf http://127.0.0.1:8080/md/demo.md -o a.pdf\r\n```\r\n\r\n<a name=\"export-html\"></a>\r\n#### html版\r\n\r\n```bash\r\n# 获取generate帮助\r\nnodeppt generate -h\r\n# 使用generate命令\r\nnodeppt generate filepath\r\n# 导出全部，包括nodeppt的js、img和css文件夹\r\n# 默认导出在publish文件夹\r\nnodeppt generate ./ppts/demo.md -a\r\n# 指定导出文件夹\r\nnodeppt generate ./ppts/demo.md -a -o output/path\r\n```\r\n导出目录下所有ppt，并且生成ppt list首页：\r\n\r\n```bash\r\nnodeppt path -o output/path -a\r\n```\r\n\r\n\r\n```\r\n\r\n#### markdown语法\r\nnodeppt是支持**marked**语法的，但是为了制作出来更加完美的ppt，扩展了下面的语法\r\n\r\n#### 配置\r\n基本配置如下：\r\n```markdown\r\ntitle: 这是演讲的题目\r\nspeaker: 演讲者名字\r\nurl: 可以设置链接\r\ntransition: 转场效果，例如：zoomin/cards/slide\r\nfiles: 引入js和css的地址，如果有的话~自动放在页面底部\r\n```\r\n**目录关系**：可以在md同级目录下创建img、js、css等文件夹，然后在markdown里面引用，nodeppt默认会先查找md文件同级目录下面的静态资源，没有再找默认的```assets```文件夹下静态内容\r\n\r\n<a name=\"transition\"></a>\r\n支持的转场动画包括：\r\n\r\n * kontext\r\n * vkontext\r\n * circle\r\n * earthquake\r\n * cards\r\n * glue\r\n * stick\r\n * move\r\n * newspaper\r\n * slide\r\n * slide2\r\n * slide3\r\n * horizontal3d\r\n * horizontal\r\n * vertical3d\r\n * zoomin\r\n * zoomout\r\n * pulse\r\n\r\n\r\n如果设置单页动画，请参考下面的**[单页动画设置](#transition-page)**部分~\r\n\r\n#### 分页\r\n通过```[slide]```作为每页ppt的间隔，如果需要添加单页背景，使用下面的语法：\r\n\r\n```markdown\r\n[slide style=\"background-image:url('/img/bg1.png')\"]\r\n# 这是个有背景的家伙\r\n## 我是副标题\r\n```\r\n\r\n#### 单页ppt上下布局\r\n```markdown\r\n[slide]\r\n## 主页面样式\r\n### ----是上下分界线\r\n----\r\nnodeppt是基于nodejs写的支持 **Markdown!** 语法的网页PPT\r\n\r\nnodeppt：https://github.com/ksky521/nodePPT\r\n```\r\n\r\n#### 代码格式化\r\n语法跟**Github Flavored Markdown** 一样~\r\n\r\n\r\n<a name=\"transition-page\"></a>\r\n#### 单页动画设置\r\n在md文件，顶部 ```配置``` 可以设置全局转场动画，如果要设置单页的转场动画，可以通过下面的语法\r\n\r\n```markdown\r\n[slide data-transition=\"vertical3d\"]\r\n## 这是一个vertical3d的动画\r\n```\r\n\r\n<a name=\"mixed-code\"></a>\r\n#### 插入html代码\r\n如果需要完全diy自己的ppt内容，可以**直接使用** html标签，支持markdown和html混编。例如：\r\n\r\n```markdown\r\n<div class=\"file-setting\">\r\n    <p>这是html</p>\r\n</div>\r\n<p id=\"css-demo\">这是css样式</p>\r\n<p>具体看下项目中 ppts/demo.md 代码</p>\r\n<script>\r\n    function testScriptTag(){\r\n\r\n    }\r\n    console.log(typeof testScriptTag);\r\n</script>\r\n<style>\r\n#css-demo{\r\n    color: red;\r\n}\r\n</style>\r\n```\r\n\r\n<a name=\"callback\"></a>\r\n#### 转场回调\r\n前端的ppt，难免会在页面中演示一些demo，除了上面的插入html语法外，还提供了```incallback```和```outcallback```，分别用于：切入（切走）到当前ppt，执行的js函数名。例如：\r\n\r\n```markdown\r\n[slide data-outcallback=\"outcallback\" data-incallback=\"incallback\"]\r\n## 当进入此页，就执行incallback函数\r\n## 当离开此页面，就执行outcallback函数\r\n```\r\n\r\n#### 表格实例\r\n```markodwn\r\n### 市面上主要的css预处理器：less\\sass\\stylus\r\n---\r\n |less| sass | stylus\r\n:-------|:------:|-------:|--------\r\n环境 |js/nodejs | Ruby | nodejs\r\n扩展名 | .less | .sass/.scss | .styl\r\n特点 | 老牌，用户多，支持js解析 | 功能全，有成型框架，发展快 | 语法多样，小众\r\n案例/框架 | [Bootstrap](http://getbootstrap.com/) | [compass](http://compass-style.org) [bourbon](http://bourbon.io) |\r\n```\r\n\r\n#### 插入iframe\r\n使用```data-src```作为iframe的url，这样只有切换到当前页才会加载url内容~\r\n```markdown\r\n<iframe data-src=\"http://www.baidu.com\" src=\"about:blank;\"></iframe>\r\n```\r\n\r\n\r\n#### 示例\r\n类似下面的语法：(更多用法查看ppts/demo.md文件)\r\n```markdown\r\ntitle: nodeppt markdown 演示\r\nspeaker: Theo Wang\r\nurl: https://github.com/ksky521/nodePPT\r\ntransition: zoomin\r\n\r\n[slide]\r\n\r\n# 封面样式\r\n## h1是作为封面用的，内部的都用h2\r\n\r\n[slide style=\"background-image:url('/img/bg1.png')\"]\r\n\r\n# 背景图片 {:&.flexbox.vleft}\r\n## 使用方法：&#91;slide style=\"background-image:url('/img/bg1.png')\"&#93;\r\n\r\n[slide]\r\n\r\n## 主页面样式\r\n### ----是上下分界线\r\n----\r\n\r\nnodeppt是基于nodejs写的支持 **Markdown!** 语法的网页PPT\r\n\r\nnodeppt：https://github.com/ksky521/nodePPT\r\n\r\n[slide]\r\n\r\n什么？这些功能还不够用？\r\n\r\n极客模式：查看源码的nodeppt.js，相信你会找到牛逼的手机互动（摇一摇换页）功能\r\n\r\n查看项目目录ppts获取更多帮助信息\r\n```\r\n\r\n更多demo，查看 ```ppts``` 目录的demo\r\n\r\n### 查看帮助\r\n\r\n```bash\r\nnodeppt -h\r\n# 任何命令都可以输入-h查看帮助\r\nnodeppt start -h\r\n```\r\n\r\n## demo演示 & 使用方法\r\n\r\n * 执行 ```nodeppt start```\r\n * 访问 [http://127.0.0.1:8080/](http://127.0.0.1:8080/)\r\n * 在线demo： http://qdemo.sinaapp.com/\r\n\r\n\r\n[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ksky521/nodeppt/trend.png)](https://bitdeli.com/free \"Bitdeli Badge\")\r\n\r\n## Thanks\r\n* http://tympanus.net/Development/ItemTransitions/index2.html\r\n* http://tympanus.net/Development/PageTransitions/\r\n* https://github.com/daneden/animate.css\r\n",
+  "bugs": {
+    "url": "https://github.com/ksky521/nodePPT/issues"
+  },
+  "homepage": "https://github.com/ksky521/nodePPT",
+  "_id": "nodeppt@0.8.9-1",
+  "_shasum": "d52009ead5de0db91b2a554f2e49553ca252c430",
+  "_from": "nodeppt@",
+  "_resolved": "https://registry.npmjs.org/nodeppt/-/nodeppt-0.8.9-1.tgz"
+}
